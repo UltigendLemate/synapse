@@ -1,6 +1,13 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import db from '@/lib/supabase/db'
+import { ThemeProvider } from '@/lib/providers/next-theme-provider'
+import { twMerge } from 'tailwind-merge';
+import AppStateProvider from '@/lib/providers/state-provider';
+import { Toaster } from '@/components/ui/toaster'
+import { SupabaseUserProvider } from '@/lib/providers/supabase-user-provider'
+import { SocketProvider } from '@/lib/providers/socket-providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +23,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={twMerge('bg-background', inter.className)}>
+        <AppStateProvider>
+          <ThemeProvider
+            defaultTheme="dark"
+            attribute="class"
+            enableSystem>
+
+            <SupabaseUserProvider>
+            <SocketProvider>
+                {children}
+                <Toaster />
+              </SocketProvider>
+            </SupabaseUserProvider>
+
+            
+          </ThemeProvider>
+        </AppStateProvider>
+
+      </body>
     </html>
   )
 }
