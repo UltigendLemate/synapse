@@ -29,11 +29,13 @@ body {
     --input: 220 13% 91%;
     --ring: 262.1 83.3% 57.8%;
     --radius: 0.5rem;
+    --test : 0 0% 100%;
+
   }
 
   .dark {
-    --background: 249 100% 3.9%;
-    --foreground: 248 100% 88%;
+    --background: 220 90% 6%;
+    --foreground: 228 90% 88%;
     --card: 224 71.4% 4.1%;
     --card-foreground: 210 20% 98%;
     --popover: 224 71.4% 4.1%;
@@ -56,7 +58,7 @@ body {
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border ;
   }
   body {
     @apply bg-background text-foreground;

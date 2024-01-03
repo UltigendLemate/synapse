@@ -8,7 +8,7 @@ interface LayoutProps {
 
 const Layout : React.FC<LayoutProps> = ({children,params}) => {
   return (
-    <main className='overflow-hidden flex h-screen w-screen'>
+    <main className=' flex h-screen w-screen'>
         <Sidebar params={params}/>
         <MobileSidebar>
           <Sidebar params ={params} className='w-screen inline-block sm:hidden'/>
@@ -16,6 +16,7 @@ const Layout : React.FC<LayoutProps> = ({children,params}) => {
         
         <div className='dark:border-Neutrals/neutrals-12  border-l-[1px] w-full relative overflow-auto'>
         {children}
+        <div className='w-full h-32 sm:h-20'></div>
         </div>
     </main>
   )

@@ -1,4 +1,5 @@
 'use client'
+import { useAppState } from '@/lib/providers/state-provider';
 import { workspace } from '@/lib/supabase/supabase.types'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Image from 'next/image';
@@ -12,6 +13,7 @@ onClick ?: (option:workspace) => void;
 }
 const SelectedWorkspace:React.FC<SelectedWorkspaceProps> = ({workspace,onClick}) => {
   const supabase = createClientComponentClient();
+  const {state} = useAppState();
   const [workspaceLogo, setWorkspaceLogo] = useState('/avatar/10.png');
 
   useEffect(()=>{

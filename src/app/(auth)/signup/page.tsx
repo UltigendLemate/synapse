@@ -27,20 +27,20 @@ const SignUpFormSchema = z.object({
 
 const SignUp = () => {
     const router = useRouter();
-    const searchParams = useSearchParams();
+    // const searchParams = useSearchParams();
     const [submitError, setsubmitError] = useState('')
-    const [confirmation, setConfirmation] = useState(false)
+    // const [confirmation, setConfirmation] = useState(false)
 
-    const codeExchangeError = useMemo(() => {
-        if (!searchParams) return '';
-        return searchParams.get('error_description');
-    }, [searchParams])
+    // const codeExchangeError = useMemo(() => {
+    //     if (!searchParams) return '';
+    //     return searchParams.get('error_description');
+    // }, [searchParams])
 
-    const confirmationAndErrorStyles = useMemo(() => clsx('bg-primary', {
-        'bg-red-500/10': codeExchangeError,
-        'border-red-500/50': codeExchangeError,
-        'text-red-700': codeExchangeError,
-    }), [])
+    // const confirmationAndErrorStyles = useMemo(() => clsx('bg-primary', {
+    //     'bg-red-500/10': codeExchangeError,
+    //     'border-red-500/50': codeExchangeError,
+    //     'text-red-700': codeExchangeError,
+    // }), [])
 
     const form = useForm<z.infer<typeof SignUpFormSchema>>({
         mode: 'onChange',
@@ -56,15 +56,15 @@ const SignUp = () => {
 
 
     const onSubmit = async ({email,password}:z.infer<typeof FormSchema>) => { 
-        const {error} = await actionSignUpUser({email,password});
-        // console.log(error,confirmation,codeExchangeError);
-        if (error){
-            setsubmitError(error.message);
+        const response = await actionSignUpUser({email,password});
+        console.log(response);
+        if (response.error){
+            setsubmitError(response.error.message);
             form.reset();
             return;
         }
-
-        setConfirmation(true);
+        router.replace('/dashboard')
+        // setConfirmation(true);
     };
 
     return (
@@ -80,8 +80,8 @@ const SignUp = () => {
 
                 <FormDescription className='text-foreground/60'>All-in-One Collaboration and Productivity Platform</FormDescription>
 
-                {!confirmation && !codeExchangeError &&
-                    <>
+                
+                 
 
                         <FormField disabled={isLoading}
                             control={form.control}
@@ -135,8 +135,7 @@ const SignUp = () => {
                         <Button type='submit' className='w-full p-6' disabled={isLoading}>
                             {!isLoading ? 'Create Account' : <Loader />}
                         </Button>
-                    </>
-                }
+                    
 
                 {submitError && <FormMessage>{submitError}</FormMessage>}
 
@@ -144,7 +143,7 @@ const SignUp = () => {
                     <Link href={'/login'} className='text-primary'>Login</Link>
                 </span>
 
-                {(confirmation || codeExchangeError) && (
+                {/* {(confirmation || codeExchangeError) && (
           <>
             <Alert className={confirmationAndErrorStyles}>
               {!codeExchangeError && <MailCheck className="h-4 w-4" />}
@@ -156,7 +155,7 @@ const SignUp = () => {
               </AlertDescription>
             </Alert>
           </>
-        )}
+        )} */}
 
 
             </form>

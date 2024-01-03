@@ -230,9 +230,38 @@ const Dropdown: React.FC<DropdownProps> = ({
     //move to trash
 
     const moveToTrash = async () => {
-        if ( !user?.email || !workspaceId) return;
+        if ( !user?.email || !workspaceId) {
+            toast({
+                title: 'Error',
+                variant: 'destructive',
+                description: `${user?.email || 'safd'}`,
+            });
+            return;
+        }
         const pathId = id.split('folder');
         if (listType == 'folder') {
+            //all files delete inside folder
+            state.workspaces.find((workspace) => workspace.id === workspaceId)
+            ?.folders.find((folder) => folder.id === pathId[0])?.files.forEach(async (file) => {
+                dispatch({
+                    type : 'UPDATE_FILE',
+                    payload : {
+                        fileId : file.id,
+                        file : { inTrash : `Deleted by ${user?.email}`},
+                        workspaceId : workspaceId,
+                        folderId : pathId[0],
+                    }
+                })
+                const {data,error} = await updateFile({ inTrash : `Deleted by ${user?.email}`}, file.id)
+                if (error) {
+                    toast({
+                        title: 'Error',
+                        variant: 'destructive',
+                        description: 'Error Occured. COuld not delete files',
+                    });
+                } 
+            })
+            
             dispatch({
                 type : 'UPDATE_FOLDER',
                 payload : {

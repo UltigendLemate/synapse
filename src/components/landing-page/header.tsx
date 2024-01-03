@@ -66,7 +66,7 @@ const Header = () => {
   const [path, setPath] = React.useState("#products");
   return (
     <header className='p-4 flex items-center justify-center'>
-      <Link href={"/"} className='font-semibold  w-full justify-start items-center dark:text-white'>noshun</Link>
+      <Link href={"/"} className='font-semibold  w-full justify-start items-center text-2xl dark:text-white'>synapse</Link>
       <NavigationMenu className='hidden md:block'>
         <NavigationMenuList className='gap-6'>
           <NavigationMenuItem>
@@ -139,6 +139,14 @@ const Header = () => {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
+          <NavigationMenuTrigger onClick={() => setPath("#pricing")} className={cn({
+              'dark:text-white': path === '#features',
+              "dark:text-white/40": path !== '#features',
+              "font-normal text-xl": true,
+
+            })}>
+              Features
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul
                 className="grid w-[400px]

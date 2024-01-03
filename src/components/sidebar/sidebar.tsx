@@ -11,6 +11,7 @@ import { ScrollArea } from '../ui/scroll-area';
 import FoldersDropdownList from './folders-dropdown-list';
 import ModeToggle from '../global/mode-toggle';
 import LogoutButton from '../global/logout-button';
+import UserCard from './user-card';
 
 
 interface SidebarProps {
@@ -42,7 +43,7 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
 
 
     return (
-        <aside className={twMerge('hidden sm:flex sm:flex-col w-[280px] shrink-0 p-4 md:gap-4 !justify-between ', className)}>
+        <aside className={twMerge('hidden sm:flex sm:flex-col w-[280px] shrink-0 p-4 md:gap-4 !justify-between relative', className)}>
             <div>
                 <WorkspaceDropdown
                     defaultValue={[...privateWorkspaces, ...sharedWorkspaces, ...collaboratingWorkspaces]
@@ -53,7 +54,7 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
 
                 <PlanUsage foldersLength={workspaceFolderData?.length || 0} subscription={subscriptionData} />
                 <NativeNavigation myWorkspaceId={params.workspaceId} />
-                <ScrollArea className=" relative h-[450px]">
+                <ScrollArea className=" relative h-[350px]">
                     <div className="pointer-events-none w-full absolute bottom-0 h-20 bg-gradient-to-t from-background to-transparent z-40"
                     />
                     <FoldersDropdownList
@@ -62,8 +63,7 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
                     />
                 </ScrollArea>
             </div>
-            <ModeToggle/>
-            <LogoutButton>Logout</LogoutButton>
+            <UserCard subscription={subscriptionData} />
         </aside>
     )
 }

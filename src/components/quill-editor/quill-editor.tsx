@@ -119,7 +119,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ dirType, dirDetails, fileId }
         if (segments.length == 3) return `${workspaceBreadcrumb} ${folderBreadcrumb} ${fileBreadcrumb}`;
 
 
-    }, [state])
+    }, [state,pathName,workspaceId])
 
     const iconOnChange = async (icon: string) => {
         if (!fileId) return;
@@ -243,6 +243,18 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ dirType, dirDetails, fileId }
 
         if (dirType == 'folder') {
             if (!workspaceId) return;
+            state.workspaces.find((workspace) => workspace.id == workspaceId)
+            ?.folders.find((folder) => folder.id == fileId)?.files.forEach(async (file) => {
+                dispatch({
+                    type: 'DELETE_FILE',
+                    payload: {
+                        workspaceId,
+                        folderId: fileId,
+                        fileId: file.id
+                    }
+                })
+                await deleteFile(file.id);
+            })
             dispatch({
                 type: 'DELETE_FOLDER',
                 payload: {
@@ -635,7 +647,8 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ dirType, dirDetails, fileId }
             )}
 
             <div className="flex justify-center items-center flex-col mt-2 relative">
-                <div className="w-full self-center max-w-[800px] flex flex-col px-7 lg:my-8">
+                <div className="w-full self-center max-w-[1000px] flex flex-col px-7 lg:my-8">
+                    <div className='flex items-center gap-2 '>
                     <div className="text-[80px]">
                         <EmojiPicker getvalue={iconOnChange}>
                             <div
@@ -646,6 +659,15 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ dirType, dirDetails, fileId }
 
                         </EmojiPicker>
                     </div>
+
+                    <div className='flex flex-col items-start gap-2 justify-center'>
+                    <h3 className='text-foreground text-4xl font-bold h-9'>{details.title}</h3>
+                    <Badge variant='secondary' className='text-sm'>{dirType.toUpperCase()}</Badge>
+                    {/* <h4 className='text-muted-foreground text-sm'>{}</h4> */}
+                    </div>
+
+                    </div>
+                    
 
                     <div className='flex'>
                         <BannerUpload
@@ -671,12 +693,11 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ dirType, dirDetails, fileId }
                         )}
                     </div>
 
-                    <span className='text-muted-foreground text-3xl font-bold h-9'>{details.title}</span>
-                    <span className='text-muted-foreground text-sm'>{dirType.toUpperCase()}</span>
+                    
                 </div>
             </div>
             <div className='flex justify-center items-center flex-col mt-2 relative'>
-                <div className='max-w-[800px]' id="container" ref={wrapperRef}>
+                <div className='max-w-[1000px] bg-neutral-500/10' id="container" ref={wrapperRef}>
 
                 </div>
             </div>
