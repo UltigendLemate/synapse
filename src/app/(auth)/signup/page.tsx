@@ -74,7 +74,7 @@ const SignUp = () => {
             }} onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col w-full sm:justify-center sm:w-[400px] space-y-6 '>
 
                 <Link href='/' className='w-full flex justify-start items-center'>
-                    <h3 className='text-4xl p-3 dark:text-white font-semibold'>noshun</h3>
+                    <h3 className='text-4xl p-3 dark:text-white font-semibold'>synapse</h3>
 
                 </Link>
 
