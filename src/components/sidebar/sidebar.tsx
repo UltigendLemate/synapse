@@ -27,13 +27,13 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
     if (!user) return;
 
     //subscr
-    const { data: subscriptionData, error: subscriptionError } = await getUserSubscriptionStatus(user.id);
+    // const { data: subscriptionData, error: subscriptionError } = await getUserSubscriptionStatus(user.id);
 
     //folders
     const { data: workspaceFolderData, error: foldersError } = await getFolders(params.workspaceId);
 
     //error
-    if (subscriptionError || foldersError) redirect('/dashboard');
+    if (foldersError) redirect('/dashboard');
 
 
     //get all different workspace private collab shared
@@ -52,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
                     sharedWorkspaces={sharedWorkspaces}
                     collaboratingWorkspaces={collaboratingWorkspaces} />
 
-                <PlanUsage foldersLength={workspaceFolderData?.length || 0} subscription={subscriptionData} />
+                {/* <PlanUsage foldersLength={workspaceFolderData?.length || 0} subscription={subscriptionData} /> */}
                 <NativeNavigation myWorkspaceId={params.workspaceId} />
                 <ScrollArea className=" relative h-[350px]">
                     <div className="pointer-events-none w-full absolute bottom-0 h-20 bg-gradient-to-t from-background to-transparent z-40"
@@ -63,7 +63,7 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
                     />
                 </ScrollArea>
             </div>
-            <UserCard subscription={subscriptionData} />
+            <UserCard/>
         </aside>
     )
 }

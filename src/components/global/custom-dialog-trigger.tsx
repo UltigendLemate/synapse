@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import {
     Dialog,
@@ -24,7 +25,7 @@ const CustomDialogTrigger: React.FC<CustomDialogTriggerProps> = ({ header, descr
     return (
         <Dialog>
             <DialogTrigger className={clsx('', className)}>{children}</DialogTrigger>
-            <DialogContent className='h-screen block sm:h-[440px] overflow-auto  w-full'>
+            <DialogContent onOpenAutoFocus={(e)=>e.preventDefault()} className='h-screen block sm:h-[440px] overflow-auto  w-full'>
                 <DialogHeader>
                     <DialogTitle>{header}</DialogTitle>
                     <DialogDescription>{description}</DialogDescription>

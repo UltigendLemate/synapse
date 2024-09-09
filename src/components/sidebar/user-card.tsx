@@ -12,7 +12,7 @@ interface UserCardProps {
   subscription: Subscription | null;
 }
 
-const UserCard: React.FC<UserCardProps> = async ({ subscription }) => {
+const UserCard = async () => {
   const supabase = createServerComponentClient({ cookies });
   const {
     data: { user },
@@ -59,7 +59,8 @@ const UserCard: React.FC<UserCardProps> = async ({ subscription }) => {
         </Avatar>
         <div className="flex flex-col">
           <span className="text-foreground">
-            {subscription?.status === 'active' ? 'Pro Plan' : 'Free Plan'}
+            Free Plan
+            {/* {subscription?.status === 'active' ? 'Pro Plan' : 'Free Plan'} */}
           </span>
           <small
             className="w-[100px] 

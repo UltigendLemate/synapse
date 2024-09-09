@@ -46,7 +46,7 @@ const SettingsForm = () => {
     const titleTimerRef = useRef<ReturnType<typeof setTimeout>>();
     const [uploadingProfilePic, setUploadingProfilePic] = useState(false);
     const [uploadingLogo, setUploadingLogo] = useState(false);
-    const {open, setOpen} = useSubscriptionModal();
+    // const {open, setOpen} = useSubscriptionModal();
     const [loadingPortal, setLoadingPortal] = useState(false);
 
     //WIP payment scene
@@ -54,10 +54,6 @@ const SettingsForm = () => {
     //add collabs
     const addCollaborator = async (user: User) => {
         if (!workspaceId) return;
-        if (subscription?.status !== 'active' && collaborators.length >= 2) {
-            setOpen(true);
-            return;
-          }
         await addCollaborators([user], workspaceId);
         setCollaborators([...collaborators, user])
     }
@@ -457,12 +453,12 @@ const SettingsForm = () => {
                     </LogoutButton>
                 </div>
 
-                <p className="flex items-center gap-2 mt-6">
+                {/* <p className="flex items-center gap-2 mt-6">
                     <CreditCard size={20} /> Billing & Plan
                 </p>
-                <Separator />
+                <Separator /> */}
 
-                <p className="text-muted-foreground">
+                {/* <p className="text-muted-foreground">
                     You are currently on a{' '}
                     {subscription?.status === 'active' ? 'Pro' : 'Free'} Plan
                 </p>
@@ -472,8 +468,8 @@ const SettingsForm = () => {
                     className="text-muted-foreground flex flex-row items-center gap-2"
                 >
                     View Plans <ExternalLink size={16} />
-                </Link>
-                {subscription?.status === 'active' ? (
+                </Link> */}
+                {/* {subscription?.status === 'active' ? (
                     <div>
                         <Button
                             type="button"
@@ -498,7 +494,7 @@ const SettingsForm = () => {
                             Start Plan
                         </Button>
                     </div>
-                )}
+                )} */}
             </>
 
             <AlertDialog open={openAlertMessage}>

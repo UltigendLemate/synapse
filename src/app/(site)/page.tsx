@@ -110,7 +110,7 @@ const HomePage = () => {
                 </div>
             </section>
 
-
+{/* 
 
             <section
                 className="mt-20
@@ -229,7 +229,7 @@ const HomePage = () => {
                         />
                     ))}
                 </div>
-            </section>
+            </section> */}
         </>
     )
 }
